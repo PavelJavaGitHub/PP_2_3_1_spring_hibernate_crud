@@ -1,5 +1,6 @@
 package ru.pavel_java_dev.spring_hiber_crud.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.pavel_java_dev.spring_hiber_crud.models.User;
 
@@ -11,7 +12,12 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private final EntityManager entityManager;
+
+    @Autowired
+    public UserDaoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     public List<User> list() {
         return (List<User>) entityManager.createQuery("from User").getResultList();

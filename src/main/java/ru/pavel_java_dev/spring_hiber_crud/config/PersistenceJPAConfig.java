@@ -43,10 +43,10 @@ public class PersistenceJPAConfig {
         return dataSource;
     }
 
-    Properties additionalProperties() {
+    Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 
         return properties;
     }
@@ -58,7 +58,7 @@ public class PersistenceJPAConfig {
         em.setDataSource(getDataSource());
         em.setPackagesToScan(env.getRequiredProperty("db.entity.package"));
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(additionalProperties());
+        em.setJpaProperties(hibernateProperties());
         em.setPersistenceUnitName("User");
 
         return em;

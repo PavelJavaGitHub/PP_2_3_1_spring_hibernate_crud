@@ -1,7 +1,5 @@
 package ru.pavel_java_dev.spring_hiber_crud.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,17 +15,9 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
-    private final ApplicationContext applicationContext;
-
-    @Autowired
-    public SpringConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
         return templateResolver;
